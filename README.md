@@ -29,9 +29,9 @@ parse_page(url)
 <Example>
 {'begin': '2020-08-01',
  'category': '경제',
- 'content': '국민의 소리를 들으십시오.',
+ 'content': '정부는 국민의 소리를 들으십시오. <중략>',
  'crawled_at': '2020-08-01 00:00:00',
- 'end': '2018-09-01',
+ 'end': '2020-09-01',
  'num_agree': 10,
  'status': '청원진행중'}
  ```
