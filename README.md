@@ -1,10 +1,11 @@
 # What-Citizens-Want
-Project Theme: Keyword Analysis of the Blue-House National Petition Data
+## Project Goal
+Keyword Analysis of the Blue-House National Petition Data
 
 ## To-Do List
-+ Acquisition: Raw Data Crawling
-+ Analysis: Process Data in API format
-+ Visualization: Android APP Development
+- Acquisition: Raw Data Crawling
+- Analysis: Process Data in API format
+- Visualization: Android APP Development
 
 ## Data Foramt
 | Content | Description |
