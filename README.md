@@ -7,7 +7,7 @@ Keyword Analysis of the Blue-House National Petition Data
 - Analysis: Process Data in API format
 - Visualization: Android APP Development
 
-### Data Foramt
+### API Foramt
 | Content | Description |
 | --- | --- |
 | time | 수집시각 |
