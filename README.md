@@ -10,14 +10,14 @@ Keyword Analysis of the Blue-House National Petition Data
 ### Data Foramt
 | Content | Description |
 | --- | --- |
+| time | 수집시각 |
 | begin | 시작일 |
-| category | 카테고리 (정치개혁, 일자리 등) |
-| content | 내용 |
-| crawled_at | 수집시각 |
 | end | 종료일 |
-| num_agree | 좋아요 |
-| replies | 댓글 |
-| status | 현재 진행 상황 (청원시작, 청원진행중, 청원종료, 브리핑) |
+| category | 카테고리 (정치개혁, 일자리 등) |
+| title | 제목 |
+| content | 내용 |
+| agree | 참여인원 |
+| status | 진행 상황 (청원시작, 청원진행중, 청원종료, 답변완료) |
 ```python
 from petitions_scraper import parse_page
 
@@ -27,11 +27,12 @@ parse_page(url)
 
 ```
 <Example>
-{'begin': '2020-08-01',
- 'category': '정치개혁',
- 'content': '정부는 국민의 소리를 들으십시오. <중략> 국회도 마찬가지입니다.',
- 'crawled_at': '2020-08-01 00:00:00',
- 'end': '2020-09-01',
- 'num_agree': 10,
+{'time': '2020-08-01 15:00:00',
+ 'begin': '2020-07-10',
+ 'end': '2020-08-09',
+ 'category': '인권/성평등',
+ 'title': '박원순씨 장례를 5일장, 서울특별시장(葬)으로 하는 것 반대합니다.',
+ 'content': '박원순씨가 사망하는 바람에 성추행 의혹은 수사도 하지 못한 채 종결되었지만 <후략>',
+ 'agree': 593596,
  'status': '청원진행중'}
  ```
