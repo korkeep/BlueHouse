@@ -2,6 +2,18 @@
 ## What-Citizens-Want
 ### Project Goal
 Keyword Analysis & Visualization of the Blue-House National Petition Data
+1. 국민 여론은 어떠한가?
+- tf-idf키워드 분석 → 국민 여론 도출
+- 월별, 카테고리별, 참여인원별 분류
+
+2. 우리 삶을 얼마나 바꿨나?
+- 정부·국회·법원·언론
+Ex) 국민 여론이 사안에 어떤 영향을 주었는지 → 과거 유사한 재판과 비교
+Ex) 입법된 법안의 형량 경중이 올바르게 책정됐는지 → 민식이법, 윤창호법 비교
+Ex) 정부의 스탠스와 언론, 여론은 어떤 차이가 있는지 → 북한, 부동산법, 최저임금, 검찰개혁, 코로나
+
+3. 잘한/미흡한 부분은 무엇인가?
+- 정부·국회·법원·언론의 개선 방향 제시
 
 ### To-Do List
 - Acquisition: Data Crawling & Pre-Processing (Python → Selenium, TF-IDF)
