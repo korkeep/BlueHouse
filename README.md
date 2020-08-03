@@ -9,14 +9,14 @@ Keyword Analysis & Visualization of the Blue-House National Petition Data
 ### 2. How they changed our lives
 - How public opinion has affected the trial → comparison with similar trials in the past
 - Whether the legislation's imprisonment weight was set correctly or not → Minsik-Law ···
-- Difference between the government's stance and public opinion → North-Korea, real estate, prosecution reform, COVID-19
+- Difference between government's stance and public opinion → DPRK, real-estate, prosecution, COVID-19 ···
 ### 3. Good/Poor part analysis
-- Suggestions for improvement → Target: Government · Congress · Court · Media
+- Suggestions for improvement → Target: Government, Congress, Court, Media
 
 ## To-Do List
-- Acquisition: Data Crawling & Pre-Processing (Python → Selenium, TF-IDF)
-- Analysis: Process Data in API Format (Python → Spark SQL, NLP)
-- Visualization: Android APP Development (Kotlin → Android Studio)
+- **Acquisition** Data Crawling & Pre-Processing (Python → Selenium, TF-IDF)
+- **Analysis** Process Data in API Format (Python → Spark SQL, NLP)
+- **Visualization** Android APP Development (Kotlin → Android Studio)
 
 ## API Foramt
 | Content | Description |
