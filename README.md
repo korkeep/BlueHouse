@@ -1,19 +1,17 @@
-
 # What-Citizens-Want
 ## Project Goal
 Keyword Analysis & Visualization of the Blue-House National Petition Data
 
-## The Blue-House national petition
-### 1. Anaylisis of public opinion
+## Expected Result
+### 1. Analysis of public opinion
 - TF-IDF keyword analysis → elicit public opinion
-- By number of participants, category, monthly classification
+- Classification anaylsis results by number of participants, category, monthly
 ### 2. How they changed our lives
-- Government·Congress·Court·Media
-- Ex) How public opinion has affected the trial → Comparison with similar trials in the past
-- Ex) The legislation's imprisonment weight was set correctly or not → Minsik-Law, YoonChangho-Law comparison
-- Ex) Difference between the government's stance and public opinion → North-Korea, Real estate Law, Minimum wage, Prosecution reform, COVID-19
-### 3. Good/Poor partial analysis
-- Suggestions for improving government·congress·court·media
+- How public opinion has affected the trial → comparison with similar trials in the past
+- Whether the legislation's imprisonment weight was set correctly or not → Minsik-Law ···
+- Difference between the government's stance and public opinion → North-Korea, real estate, prosecution reform, COVID-19
+### 3. Good/Poor part analysis
+- Suggestions for improvement → Target: Government · Congress · Court · Media
 
 ## To-Do List
 - Acquisition: Data Crawling & Pre-Processing (Python → Selenium, TF-IDF)
