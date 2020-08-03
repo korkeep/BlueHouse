@@ -8,8 +8,8 @@ Keyword Analysis & Visualization of the Blue-House National Petition Data
 - Classification → number of participants, category, month
 ### 2. How they changed our lives
 - How public opinion has affected the trial → Me-Too, 'N'th room, Appointing Cho-Kuk as minister of justice ···
-- Whether the legislation's imprisonment weight was set correctly or not → Minsik-law, YoonChangho-law ···
-- Difference between government's stance and public opinion → DPRK, Real-estate, Prosecution, COVID-19 ···
+- Whether the legislation's imprisonment weight was set correctly or not → Minsik law, Yoon-Changho law ···
+- Difference between government's stance and public opinion → DPRK, Real estate, Prosecution, COVID-19 ···
 ### 3. Good/Poor part classification
 - Suggestions for improvement → Target: Government, Congress, Court, Media
 
