@@ -5,11 +5,11 @@ Keyword Analysis & Visualization of the Blue-House National Petition Data
 ## Expected Result
 ### 1. Analysis of public opinion
 - TF-IDF keyword analysis → elicit public opinion
-- Classify anaylsis results by number of participants, category, monthly
+- Classification → number of participants, category, month
 ### 2. How they changed our lives
-- How public opinion has affected the trial → comparison with similar trials in the past
-- Whether the legislation's imprisonment weight was set correctly or not → Minsik-Law, YoonChangho-Law ···
-- Difference between government's stance and public opinion → DPRK, real-estate, prosecution, COVID-19 ···
+- How public opinion has affected the trial → 'N'th room, Appointing Cho-Kuk as minister of justice and justice ···
+- Whether the legislation's imprisonment weight was set correctly or not → Minsik-law, YoonChangho-law ···
+- Difference between government's stance and public opinion → DPRK, Real-estate, Prosecution, COVID-19 ···
 ### 3. Good/Poor part classification
 - Suggestions for improvement → Target: Government, Congress, Court, Media
 
