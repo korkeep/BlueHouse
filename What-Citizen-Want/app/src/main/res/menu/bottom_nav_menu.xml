@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- * using default code
+         * I only made the outline of the program :/
+         * Icon needs to be modified.
+     -->
+    <item
+        android:id="@+id/navigation_view_petitions"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="View Petitions" />
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home" />
+    <item
+        android:id="@+id/navigation_keyword_analysis"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Keyword Analysis" />
+
+</menu>
