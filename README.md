@@ -16,7 +16,7 @@ Keyword Analysis & Visualization of the Blue-House National Petition Data
 ## To-Do List
 - **Acquisition**: Data Crawling & Pre-Processing (Python → Selenium, TF-IDF)
 - **Analysis**: Process Data in API Format (Python → Spark SQL, NLP)
-- **Visualization**: Android APP Development (Kotlin → Android Studio)
+- **Visualization**: Android APP Development (Java → Android Studio)
 
 ## API Foramt
 | Content | Description |
