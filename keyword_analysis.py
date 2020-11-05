@@ -54,17 +54,28 @@ json_files = [pos_json for pos_json in os.listdir(R_filepath) if pos_json.endswi
 for index, js in enumerate(json_files):
     with open(os.path.join(R_filepath, js), 'rt', encoding='UTF8') as json_file:
         raw_data = json.load(json_file)
+        raw_title = raw_data["title"]
         raw_content = raw_data["content"]
 
         keyword = []
-        corpus = [raw_content]
-        print(corpus)
+        corpus_title = [raw_title]
+        corpus_content = [raw_content]
+        print(corpus_title)
+        print(corpus_content)
         
-        # Extract 10 keywords
-        for id, s in enumerate(tfidfScorer(corpus)):
+        # Extract 3 keywords in title
+        for id, s in enumerate(tfidfScorer(corpus_title)):
             s = sorted(s, key=lambda x:x[1], reverse=True)
             for i in range(len(s)):
                 keyword.append(s[i][0])
+                if len(keyword) == 3: break
+
+        # Extract 7 keywords in content
+        for id, s in enumerate(tfidfScorer(corpus_content)):
+            s = sorted(s, key=lambda x:x[1], reverse=True)
+            for i in range(len(s)):
+                if s[i][0] not in keyword:
+                    keyword.append(s[i][0])
                 if len(keyword) == 10: break
 
         print(keyword)
