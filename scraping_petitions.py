@@ -9,6 +9,7 @@ from petitions_scraper import parse_page
 def main():
     parser = argparse.ArgumentParser()
     # 584274: 2020-01-02 Petition
+    # 584185: 2020-09-30 Petition
     # 593728: 2020-10-30 Petition
     parser.add_argument('--directory', type=str, default='output', help='JSON storage directory')
     parser.add_argument('--first_index', type=int, default=584274, help='First index of petition')
