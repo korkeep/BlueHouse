@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorIcon">#012c59</color>
+    <color name="colorTop">#133574</color>
+    <color name="colorDark">#004080</color>
+    <color name="colorBlue">#00519D</color>
+    <color name="colorWhite">#EEEEEE</color>
+</resources>
