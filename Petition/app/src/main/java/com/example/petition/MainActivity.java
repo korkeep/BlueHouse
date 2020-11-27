@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //첫 번째 실행여부 판단
-        CheckAppFirstExecute();
+        //CheckAppFirstExecute();
 
         //상단 액션바 프로젝트 명 없애고, 뒤로가기 아이콘 생성
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 첫 번째 실행 시 IntroActivity 전환
-    public void CheckAppFirstExecute(){
+    /*public void CheckAppFirstExecute(){
         SharedPreferences pref = getSharedPreferences("IsFirst" , Activity.MODE_PRIVATE);
         boolean isFirst = pref.getBoolean("isFirst", false);
         if (!isFirst) {
@@ -123,5 +123,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
+    }*/
 }
