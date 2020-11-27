@@ -11,37 +11,43 @@
         android:orientation="horizontal">
 
         <ToggleButton
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="16dp"
-            android:layout_gravity="center"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:textOn=""
-            android:textOff=""
             android:id="@+id/like"
-            android:background="@drawable/like_gray"/>
-
-        <TextView
-            android:id="@+id/category"
-            android:textColor="@color/colorWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:singleLine="true">
-        </TextView>
-
-        <TextView
-            android:id="@+id/title"
-            android:textColor="@color/colorWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        </TextView>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/like_dark"
+            android:textOff=""
+            android:textOn="" />
 
         <TextView
             android:id="@+id/agree"
-            android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        </TextView>
+            android:layout_height="32dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite" />
 
     </LinearLayout>
 
