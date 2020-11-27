@@ -163,24 +163,31 @@ public class FragmentHome extends Fragment {
             final String Agree = Integer.toString(fInfo.getAgree());
             ((TextView) v.findViewById(R.id.agree)).setText(Agree);
 
-            //like 버튼 클릭 시 like 버튼 비활성화
+            //좋아요 버튼 설정
             final ToggleButton like = (ToggleButton) v.findViewById(R.id.like);
+
+            // DB에 레코드가 존재한다면 채워진 하트 모양으로 전환
+            if(dbHelper.get_Liked(ID)){
+                like.setBackgroundDrawable(getResources().getDrawable(R.drawable.like_white));
+            }
+
+            //like 버튼 클릭 시 like 버튼 활성화
             like.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // DB에 레코드가 존재한다면 like를 체크 상태로 전환
+                    // like 체크 상태로 전환
                     if(dbHelper.get_Liked(ID)) like.setChecked(true);
                     else like.setChecked(false);
-
-                    // Like 0으로 변경
-                    if(like.isChecked()) {
-                        //Like 클릭시 하트 비워짐, 토스트메시지
+                    // 보관함에 추가
+                    if(!like.isChecked()) {
+                        //Like 클릭시 하트 채워짐, 토스트메시지
+                        like.setBackgroundDrawable(getResources().getDrawable(R.drawable.like_white));
+                        Toast.makeText(context, "보관함에 추가", Toast.LENGTH_SHORT).show();
+                    }
+                    // 보관함에 삭제
+                    else {
                         like.setBackgroundDrawable(getResources().getDrawable(R.drawable.like_dark));
                         Toast.makeText(context, "보관함에서 삭제", Toast.LENGTH_SHORT).show();
-
-                        //해당 Fragment 다시 load
-                        //TODO 자연스러운 애니메이션으로 삭제하는 방법 있으면 추가하자
-                        refresh();
                     }
                     dbHelper.update_Liked(ID);
                 }
@@ -197,11 +204,5 @@ public class FragmentHome extends Fragment {
             });
             return v;
         }
-    }
-
-    //Fragment 업데이트
-    private void refresh(){
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.detach(this).attach(this).commit();
     }
 }

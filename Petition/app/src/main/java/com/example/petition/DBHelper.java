@@ -82,7 +82,7 @@ public class DBHelper extends SQLiteOpenHelper {
             result += cursor.getInt(0);   //LIKED
         }
 
-        if(ID.equals(result)){
+        if(Integer.parseInt(result) == 1){
             Log.i("[DBHelper: getResult_Liked]", ID + "는 좋아요 클릭한 청원입니다.");
             return true;
         } else {
@@ -100,7 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 현재 좋아요 여부 가져오기
         Cursor cursor = db.rawQuery("SELECT LIKED FROM PETITION WHERE ID=?", new String[] {ID});
         while (cursor.moveToNext()) {
-            temp += cursor.getString(0);    //PLAYED
+            temp += cursor.getInt(0);    //PLAYED
         }
         int result = 0;
         if(Integer.parseInt(temp) == 0){
@@ -109,7 +109,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 좋아요 여부 업데이트
         db.execSQL("UPDATE PETITION SET LIKED=" + result + " WHERE ID='" + ID + "';");
-        Log.i("[DBHelper: update_Liked]", "좋아요 여부가 업데이트 됐습니다.");
+        Log.i("[DBHelper: update_Liked]", Integer.toString(result));
         db.close();
     }
 }
