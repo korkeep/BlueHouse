@@ -6,28 +6,44 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     //중간 Frame 구성
-    private FragmentManager fragmentManager = getSupportFragmentManager();
-    private FragmentHome fragmentHome = new FragmentHome();
-    private FragmentDate fragmentDate = new FragmentDate();
-    private FragmentLike fragmentLike = new FragmentLike();
+    private final FragmentManager fragmentManager = getSupportFragmentManager();
+    private final FragmentHome fragmentHome = new FragmentHome();
+    private final FragmentDate fragmentDate = new FragmentDate();
+    private final FragmentLike fragmentLike = new FragmentLike();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //첫 번째 실행여부 판단
+        CheckAppFirstExecute();
 
         //상단 액션바 프로젝트 명 없애고, 뒤로가기 아이콘 생성
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -72,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     //하단 메뉴 부분
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+        @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -88,6 +105,23 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             return true;
+        }
+    }
+
+    // 첫 번째 실행 시 IntroActivity 전환
+    public void CheckAppFirstExecute(){
+        SharedPreferences pref = getSharedPreferences("IsFirst" , Activity.MODE_PRIVATE);
+        boolean isFirst = pref.getBoolean("isFirst", false);
+        if (!isFirst) {
+            // 첫 번째 실행 시
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("isFirst", true);
+            editor.apply();
+
+            // DB에 청원 분석 결과 파일 저장
+            Intent intent = new Intent(MainActivity.this, FirstActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

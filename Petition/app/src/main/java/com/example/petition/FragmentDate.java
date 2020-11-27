@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 public class FragmentDate extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_date, container, false);
-
         return v;
     }
 }
