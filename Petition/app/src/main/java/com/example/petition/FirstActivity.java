@@ -32,7 +32,7 @@ public class FirstActivity extends Activity {
             // DB에 청원 분석 결과 파일 저장
             for (int i = 584274; i <= 593185; i++){
                 if(AddPetition(i)) {
-                    dbHelper.insert(data);
+                    dbHelper.Insert(data);
                 }
             }
         }
