@@ -75,6 +75,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     + '\n';
         }
         Log.i("[DBHelper: get_HomeData]", '\n' + result);
+        db.close();
         return result;
     }
 
@@ -89,6 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             result += cursor.getInt(0);   //LIKED
         }
+        db.close();
 
         if(Integer.parseInt(result) == 1){
             Log.i("[DBHelper: getResult_Liked]", ID + "는 좋아요 클릭한 청원입니다.");
@@ -148,6 +150,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     + '\n';
         }
         Log.i("[DBHelper: sort_Title]", '\n' + result);
+        db.close();
         return result;
     }
 
@@ -178,6 +181,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     + '\n';
         }
         Log.i("[DBHelper: sort_Begin]", '\n' + result);
+        db.close();
         return result;
     }
 
@@ -208,6 +212,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     + '\n';
         }
         Log.i("[DBHelper: sort_Agree]", '\n' + result);
+        db.close();
         return result;
     }
 
@@ -268,6 +273,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.i("Iter1[]","와일문 끝");
 
         Iterator it = sortByValue(hsMap1).iterator();
+        db.close();
         return it;
     }
 
@@ -306,6 +312,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.i("Iter2[]","와일문 끝");
 
         Iterator it = sortByValue(hsMap2).iterator();
+        db.close();
         return it;
     }
 
@@ -342,6 +349,7 @@ public class DBHelper extends SQLiteOpenHelper {
             }
         }
         Log.i("get_max3","와일문 끝");
+        db.close();
         return hsMap1;
     }
 
@@ -377,8 +385,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 }
             }
         }
-
         Log.i("get_max4","와일문 끝");
+        db.close();
         return hsMap2;
     }
 }

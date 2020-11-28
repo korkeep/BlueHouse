@@ -38,6 +38,7 @@ public class FragmentHome extends Fragment {
     private EditText searchOption;
     private ListView playlist;
     private String keyword = "";
+    private Boolean flag = false;
 
     //리스트 출력에 필요한 Parameter
     ArrayList<HomeData> p_data = new ArrayList<HomeData>();
@@ -57,6 +58,7 @@ public class FragmentHome extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    flag = true;    // flag true로 전환
                     performSearch();
                     return true;
                 }
@@ -91,26 +93,30 @@ public class FragmentHome extends Fragment {
         protected Void doInBackground(Void... params) {
             Log.i("[FragmentHome]", '\n' + "백그라운드 안 여기 실행된다.");
 
-            p_data.clear();  //리스트 템플릿인 pdata 비워주기
+            // 검색 받은 경우, p_data 다시 읽어옴
+            if(flag){
+                p_data.clear();
 
-            //DB 관련
-            String getString  = "";
-            final DBHelper dbHelper = new DBHelper(getActivity(), "PETITION.db", null, 1);
+                //DB 관련
+                String getString  = "";
+                final DBHelper dbHelper = new DBHelper(getActivity(), "PETITION.db", null, 1);
 
-            getString = dbHelper.get_HomeData(keyword);
+                getString = dbHelper.get_HomeData(keyword);
 
-            //DB 읽어오기
-            if(!getString.equals("")){
-                String[] line = getString.split("\n");
-                String[] subStr;
-                HomeData temp;
+                //DB 읽어오기
+                if(!getString.equals("")){
+                    String[] line = getString.split("\n");
+                    String[] subStr;
+                    HomeData temp;
 
-                // 레코드 가져오기 (ID, CATEGORY, TITLE, AGREE, LIKED)
-                for (String s : line) {
-                    subStr = s.split("\t");
-                    temp = new HomeData(subStr[0], subStr[3], subStr[4], Integer.parseInt(subStr[6]), Integer.parseInt(subStr[7]));
-                    p_data.add(temp);
+                    // 레코드 가져오기 (ID, CATEGORY, TITLE, AGREE, LIKED)
+                    for (String s : line) {
+                        subStr = s.split("\t");
+                        temp = new HomeData(subStr[0], subStr[3], subStr[4], Integer.parseInt(subStr[6]), Integer.parseInt(subStr[7]));
+                        p_data.add(temp);
+                    }
                 }
+                flag = false;
             }
             return null;
         }
@@ -118,8 +124,10 @@ public class FragmentHome extends Fragment {
         //DB에서 읽어온 데이터를 이용해 리스트 만들기
         @Override
         protected void onPostExecute(Void result) {
-            FragmentHome.StoreListAdapter mAdapter = new FragmentHome.StoreListAdapter(context, R.layout.listview_home, p_data);
-            playlist.setAdapter(mAdapter);
+            if(p_data != new ArrayList<HomeData>()){
+                FragmentHome.StoreListAdapter mAdapter = new FragmentHome.StoreListAdapter(context, R.layout.listview_home, p_data);
+                playlist.setAdapter(mAdapter);
+            }
         }
     }
 

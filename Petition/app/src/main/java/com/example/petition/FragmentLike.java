@@ -78,7 +78,8 @@ public class FragmentLike extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            p_data.clear();  //리스트 템플릿인 pdata 비워주기
+            //리스트 템플릿인 p_data 비워주기
+            p_data.clear();
 
             //DB 관련
             String getString = "";
@@ -116,8 +117,10 @@ public class FragmentLike extends Fragment {
         //DB에서 읽어온 데이터를 이용해 리스트 만들기
         @Override
         protected void onPostExecute(Void result) {
-            FragmentLike.StoreListAdapter mAdapter = new FragmentLike.StoreListAdapter(context, R.layout.listview_like, p_data);
-            playlist.setAdapter(mAdapter);
+            if(p_data != new ArrayList<LikeData>()){
+                FragmentLike.StoreListAdapter mAdapter = new FragmentLike.StoreListAdapter(context, R.layout.listview_like, p_data);
+                playlist.setAdapter(mAdapter);
+            }
         }
     }
 

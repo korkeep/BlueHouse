@@ -21,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -29,17 +30,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class FragmentDate extends Fragment {
+    // 변수 초기화
     private Button textView_Date;
     private Button textView_Date2;
-
+    private Button search;
     private Context context;
     private ListView playlist;
+    private int year;
+    private int month;
+    private int day;
+    private Boolean flag = false;
 
-    ArrayList<DateData> p_data = new ArrayList<DateData>();
+
     Iterator it1, it2;
-    int raw_agree;//동의수
-    HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
-    HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
+    ArrayList<DateData> p_data = new ArrayList<DateData>();
+    HashMap<String,Integer> hsMap1 = new HashMap<>();   // 키워드 반복 회수
+    HashMap<String,Integer> hsMap2 = new HashMap<>();   // 키워드 동의수
     String date1;
     String date2;
 
@@ -49,9 +55,11 @@ public class FragmentDate extends Fragment {
         View v = inflater.inflate(R.layout.fragment_date, container, false);
         textView_Date = (Button) v.findViewById(R.id.btnStart);
         textView_Date2 = (Button) v.findViewById(R.id.btnEnd);
+        search = (Button) v.findViewById(R.id.btnSearch);
 
         textView_Date.setOnClickListener(this::mOnClick);
         textView_Date2.setOnClickListener(this::mOnClick);
+        search.setOnClickListener(this::mOnClick);
 
         assert container != null;
         context = container.getContext();
@@ -61,44 +69,51 @@ public class FragmentDate extends Fragment {
         return v;
     }
 
+    // 달력 버튼 클릭 이벤트 핸들러
     @SuppressLint("NonConstantResourceId")
     public void mOnClick(View v){
         Calendar c = Calendar.getInstance();
         switch (v.getId()){
             case R.id.btnStart:
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
-                if(month %10==0)
-                    new DatePickerDialog(getContext(), mDateSetListener, year, month, day).show();
-                printTask = new FragmentDate.printTask().execute();
+                Log.i("[FragmentDate]", '\n' + "첫 번째 달력 버튼 클릭");
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
+                new DatePickerDialog(getContext(), mDateSetListener, year, month, day).show();
                 break;
             case R.id.btnEnd:
-                year =c.get(Calendar.YEAR);
-                month =c.get(Calendar.MONTH);
-                day =c.get(Calendar.DAY_OF_MONTH);
+                Log.i("[FragmentDate]", '\n' + "두 번째 달력 버튼 클릭");
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
                 new DatePickerDialog(getContext(), mDateSetListener2, year, month, day).show();
-                printTask = new FragmentDate.printTask().execute();
                 break;
+            case R.id.btnSearch:
+                flag = true;
+                Log.i("[FragmentDate]", '\n' + "검색 버튼 클릭");
+                Toast.makeText(context, "검색 시작", Toast.LENGTH_SHORT).show();
+                printTask = new FragmentDate.printTask().execute();
         }
     }
 
+    // 시작 날짜 설정
     private final DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @SuppressLint("SetTextI18n")
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            date1 = "";
             String tmp0, tmp1, tmp2;
             tmp0=Integer.toString(year);
             if((month+1)/10==0){
-                tmp1="0"+Integer.toString(month+1);
+                tmp1 = "0" + Integer.toString(month+1);
             }
             else
-                tmp1=Integer.toString(month);
+                tmp1 = Integer.toString(month+1);
             if((dayOfMonth/10)==0){
-                tmp2 = "0"+Integer.toString(dayOfMonth);
+                tmp2 = "0" + Integer.toString(dayOfMonth);
             }
             else
-                tmp2=Integer.toString(dayOfMonth);
+                tmp2 = Integer.toString(dayOfMonth);
             textView_Date.setText(tmp0+"-"+tmp1+"-"+tmp2);
             switch (month){
                 case 0:
@@ -138,26 +153,28 @@ public class FragmentDate extends Fragment {
                     tmp1="Dec";
                     break;
             }
-            date1=tmp1+" "+tmp2+" "+tmp0;
+            date1 = tmp1+" "+tmp2+" "+tmp0;
         }
     };
 
+    // 종료 날짜 설정
     private final DatePickerDialog.OnDateSetListener mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
         @SuppressLint("SetTextI18n")
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            date2 = "";
             String tmp0, tmp1, tmp2;
             tmp0=Integer.toString(year);
             if((month+1)/10==0){
-                tmp1="0"+Integer.toString(month+1);
+                tmp1="0" + Integer.toString(month+1);
             }
             else
-                tmp1=Integer.toString(month);
+                tmp1=Integer.toString(month+1);
             if((dayOfMonth/10)==0){
-                tmp2 = "0"+Integer.toString(dayOfMonth);
+                tmp2 = "0" + Integer.toString(dayOfMonth);
             }
             else
-                tmp2=Integer.toString(dayOfMonth);
+                tmp2 = Integer.toString(dayOfMonth);
             textView_Date2.setText(tmp0+"-"+tmp1+"-"+tmp2);
             switch (month){
                 case 0:
@@ -197,7 +214,7 @@ public class FragmentDate extends Fragment {
                     tmp1="Dec";
                     break;
             }
-            date2=tmp1+" "+tmp2+" "+tmp0;
+            date2 = tmp1+" "+tmp2+" "+tmp0;
         }
     };
 
@@ -213,22 +230,28 @@ public class FragmentDate extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             Log.i("[FragmentDate]", '\n' + "백그라운드 안 여기 실행된다.");
-            p_data.clear();  //리스트 템플릿인 pdata 비워주기
 
-            //DB 관련
-            String getString  = "";
-            final DBHelper dbHelper = new DBHelper(getActivity(), "PETITION.db", null, 1);
-            it1=dbHelper.returnSortedKey(date1,date2);
-            it2=dbHelper.returnSortedKeyForTotal(date1,date2);
-            hsMap1=dbHelper.returnHashMapForAgree(date1,date2);
-            hsMap2=dbHelper.returnHashMapForTotal(date1,date2);
-            DateData tmp;
+            // 검색 받은 경우, p_data 다시 읽어옴
+            if(flag){
+                p_data.clear();
 
-            while(it1.hasNext()) {
-                String tmp1 = (String)it1.next();
-                //String tmp2 = (String)it2.next();
-                tmp = new DateData("1",tmp1,(hsMap1.get(tmp1)),(hsMap2.get(tmp1)));
-                p_data.add(tmp);
+                //DB 관련
+                String getString  = "";
+                final DBHelper dbHelper = new DBHelper(getActivity(), "PETITION.db", null, 1);
+                it1=dbHelper.returnSortedKey(date1,date2);
+                it2=dbHelper.returnSortedKeyForTotal(date1,date2);
+                hsMap1=dbHelper.returnHashMapForAgree(date1,date2);
+                hsMap2=dbHelper.returnHashMapForTotal(date1,date2);
+                DateData tmp;
+
+                while(it1.hasNext()) {
+                    String tmp1 = (String)it1.next();
+                    //String tmp2 = (String)it2.next();
+                    tmp = new DateData("1",tmp1,(hsMap1.get(tmp1)),(hsMap2.get(tmp1)));
+                    p_data.add(tmp);
+                }
+
+                flag = false;
             }
             return null;
         }
@@ -236,8 +259,10 @@ public class FragmentDate extends Fragment {
         //DB에서 읽어온 데이터를 이용해 리스트 만들기
         @Override
         protected void onPostExecute(Void result) {
-            FragmentDate.StoreListAdapter mAdapter = new FragmentDate.StoreListAdapter(context, R.layout.listview_date, p_data);
-            playlist.setAdapter(mAdapter);
+            if(p_data != new ArrayList<DateData>()){
+                FragmentDate.StoreListAdapter mAdapter = new FragmentDate.StoreListAdapter(context, R.layout.listview_date, p_data);
+                playlist.setAdapter(mAdapter);
+            }
         }
     }
 
@@ -265,11 +290,11 @@ public class FragmentDate extends Fragment {
             final String Keyword = fInfo.getKeyword();
             ((TextView)v.findViewById(R.id.keyword)).setText(Keyword);
 
-            //동의인원 설정
+            //관련 청원 수
             final String Agree = Integer.toString(fInfo.getAgree());
             ((TextView) v.findViewById(R.id.title)).setText(Agree);
 
-            //총
+            //총 참여인원 수
             final String Total = Integer.toString(fInfo.getTotal());
             ((TextView) v.findViewById(R.id.total)).setText(Total);
 
