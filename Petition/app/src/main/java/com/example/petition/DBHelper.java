@@ -8,7 +8,15 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class DBHelper extends SQLiteOpenHelper {
     //DBHelper 생성자 (관리할 DB 이름, 버전 정보)
@@ -201,5 +209,176 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         Log.i("[DBHelper: sort_Agree]", '\n' + result);
         return result;
+    }
+
+    //내림차순으로 항목 리턴 (FragmentDate)
+    public static List sortByValue(final Map map) {
+        List<String> list = new ArrayList();
+        list.addAll(map.keySet());
+
+        Collections.sort(list,new Comparator() {
+
+            public int compare(Object o1,Object o2) {
+                Object v1 = map.get(o1);
+                Object v2 = map.get(o2);
+                return ((Comparable) v2).compareTo(v1);
+            }
+        });
+        //Collections.reverse(list); // 주석시 오름차순
+        return list;
+    }
+
+    //동의수가 많은거 출력하는거 (FragmentDate)
+    public Iterator returnSortedKey(String a, String b) {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+
+        //변수들 선언
+        String raw_keyword; //키워드 쓸수 있을때까지 변경할때만 사용
+        int raw_agree;//동의수
+        HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
+        HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE BETWEEN '" + a + "' AND '" + b + "';", null);
+
+        while (cursor.moveToNext()) {
+            //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
+            raw_keyword = cursor.getString(0);
+            String mid[]=raw_keyword.split(",");
+
+            //동의 수를 저장한다.
+            raw_agree=cursor.getInt(1);
+
+            for (String word : mid){
+                //String tmp = word.substring(1,word.length()-1);
+                String tmp=word;
+                if(hsMap1.containsKey(word)){
+                    hsMap1.put(tmp,hsMap1.get(tmp)+1);
+                    hsMap2.put(tmp,hsMap2.get(tmp)+raw_agree);
+                } else{
+                    hsMap1.put(tmp,1);
+                    hsMap2.put(tmp,raw_agree);
+                }
+            }
+            /*raw_keyword=cursor.getString(0);
+            Log.i("로우키",raw_keyword);*/
+        }
+        Log.i("Iter1[]","와일문 끝");
+
+        Iterator it = sortByValue(hsMap1).iterator();
+        return it;
+    }
+
+    // TO-DO (FragmentDate)
+    public Iterator returnSortedKeyForTotal(String a, String b) {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+
+        //변수들 선언
+        String raw_keyword; //키워드 쓸수 있을때까지 변경할때만 사용
+        int raw_agree;//동의수
+        HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
+        HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
+
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE BETWEEN '" + a + "' AND '" + b + "';", null);
+        while (cursor.moveToNext()) {
+            //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
+            raw_keyword = cursor.getString(0);
+            String mid[]=raw_keyword.split(",");
+
+            //동의 수를 저장한다.
+            raw_agree=cursor.getInt(1);
+
+            for (String word : mid){
+                //String tmp = word.substring(1,word.length()-1);
+                String tmp=word;
+                if(hsMap1.containsKey(word)){
+                    hsMap1.put(tmp,hsMap1.get(tmp)+1);
+                    hsMap2.put(tmp,hsMap2.get(tmp)+raw_agree);
+                } else{
+                    hsMap1.put(tmp,1);
+                    hsMap2.put(tmp,raw_agree);
+                }
+            }
+        }
+        Log.i("Iter2[]","와일문 끝");
+
+        Iterator it = sortByValue(hsMap2).iterator();
+        return it;
+    }
+
+    //TO-DO (FragmentDate)
+    public HashMap<String,Integer> returnHashMapForAgree(String a, String b) {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+
+        //변수들 선언
+        String raw_keyword; //키워드 쓸수 있을때까지 변경할때만 사용
+        int raw_agree;//동의수
+        HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
+        HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
+
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE BETWEEN '" + a + "' AND '" + b + "';", null);
+        while (cursor.moveToNext()) {
+            //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
+            raw_keyword = cursor.getString(0);
+            String mid[]=raw_keyword.split(",");
+
+            //동의 수를 저장한다.
+            raw_agree=cursor.getInt(1);
+
+            for (String word : mid){
+                // String tmp = word.substring(1,word.length()-1);
+                String tmp=word;
+                if(hsMap1.containsKey(word)){
+                    hsMap1.put(tmp,hsMap1.get(tmp)+1);
+                    hsMap2.put(tmp,hsMap2.get(tmp)+raw_agree);
+                } else{
+                    hsMap1.put(tmp,1);
+                    hsMap2.put(tmp,raw_agree);
+                }
+            }
+        }
+        Log.i("get_max3","와일문 끝");
+        return hsMap1;
+    }
+
+    // TO-DO (FragmentDate)
+    public HashMap<String,Integer> returnHashMapForTotal(String a, String b) {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+
+        //변수들 선언
+        String raw_keyword; //키워드 쓸수 있을때까지 변경할때만 사용
+        int raw_agree;//동의수
+        HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
+        HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
+
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE BETWEEN '" + a + "' AND '" + b + "';", null);
+        while (cursor.moveToNext()) {
+            //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
+            raw_keyword = cursor.getString(0);
+            String mid[]=raw_keyword.split(",");
+
+            //동의 수를 저장한다.
+            raw_agree=cursor.getInt(1);
+
+            for (String word : mid){
+                //String tmp = word.substring(1,word.length()-1);
+                String tmp=word;
+                if(hsMap1.containsKey(word)){
+                    hsMap1.put(tmp,hsMap1.get(tmp)+1);
+                    hsMap2.put(tmp,hsMap2.get(tmp)+raw_agree);
+                } else{
+                    hsMap1.put(tmp,1);
+                    hsMap2.put(tmp,raw_agree);
+                }
+            }
+        }
+
+        Log.i("get_max4","와일문 끝");
+        return hsMap2;
     }
 }
