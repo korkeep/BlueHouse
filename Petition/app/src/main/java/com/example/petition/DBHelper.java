@@ -30,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
 
-    // 레코드 추가, Primary Key 이용해 중복 처리
+    // 레코드 추가, Primary Key 이용해 중복 처리 (FirstActivity)
     public void Insert(Petition data) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO PETITION VALUES('"+ data.getID()+"', '"+data.getBegin()+"', '"+data.getEnd()+ "', '"+data.getCategory()+"', '"+data.getTitle()+"', '"+data.getKeyword()+"', '"+data.getAgree()+"', 0);");
@@ -38,14 +38,14 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // 키워드 검색 레코드 출력 (FragmentRecommend)
+    // 키워드 검색 레코드 출력 (FragmentHome)
     public String get_HomeData(String search) {
         // 읽기가 가능하게 DB 열기
         SQLiteDatabase db = getReadableDatabase();
         String result = "";
 
         // 레코드 가져오기 (ID, BEGIN_DATE, END_DATE, CATEGORY, TITLE, KEYWORD, AGREE, LIKED)
-        String mQuery = "SELECT * FROM PETITION WHERE KEYWORD LIKE '%"+search+"%'";
+        String mQuery = "SELECT * FROM PETITION WHERE KEYWORD LIKE '%"+search+"%' ORDER BY AGREE DESC";
         Cursor cursor = db.rawQuery(mQuery, null);
 
         while (cursor.moveToNext()) {
@@ -70,13 +70,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    // 좋아요 체크여부 반환
+    // 좋아요 체크여부 반환 (FragmentHome, FragmentLike)
     public boolean get_Liked(String ID) {
         // 읽기가 가능하게 DB 열기
         SQLiteDatabase db = getReadableDatabase();
         String result = "";
 
-        // 레코드 가져오기 (VIDEO_ID, TITLE, URL, PUBLISHED_AT, LIKE_AT, GROUP_NAME, PLAYED)
+        // 레코드 가져오기 (ID, BEGIN_DATE, END_DATE, CATEGORY, TITLE, KEYWORD, AGREE, LIKED)
         Cursor cursor = db.rawQuery("SELECT LIKED FROM PETITION WHERE ID=?", new String[]{ID});
         while (cursor.moveToNext()) {
             result += cursor.getInt(0);   //LIKED
@@ -91,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    // 좋아요 업데이트
+    // 좋아요 업데이트 (FragmentHome, FragmentLike)
     public void update_Liked(String ID) {
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
@@ -111,5 +111,95 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE PETITION SET LIKED=" + result + " WHERE ID='" + ID + "';");
         Log.i("[DBHelper: update_Liked]", Integer.toString(result));
         db.close();
+    }
+
+    // 제목 순으로 레코드 출력 (FragmentLike)
+    public String sort_Title() {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        String result = "";
+
+        // 레코드 가져오기 (ID, BEGIN_DATE, END_DATE, CATEGORY, TITLE, KEYWORD, AGREE, LIKED)
+        Cursor cursor = db.rawQuery("SELECT * FROM PETITION WHERE LIKED LIKE 1 ORDER BY TITLE", null);
+        while (cursor.moveToNext()) {
+            result += cursor.getString(0)   //ID
+                    + '\t'
+                    + cursor.getString(1)   //BEGIN_DATE
+                    + '\t'
+                    + cursor.getString(2)   //END_DATE
+                    + '\t'
+                    + cursor.getString(3)   //CATEGORY
+                    + '\t'
+                    + cursor.getString(4)   //TITLE
+                    + '\t'
+                    + cursor.getString(5)   //KEYWORD
+                    + '\t'
+                    + cursor.getInt(6)      //AGREE
+                    + '\t'
+                    + cursor.getInt(7)      //LIKED
+                    + '\n';
+        }
+        Log.i("[DBHelper: sort_Title]", '\n' + result);
+        return result;
+    }
+
+    // 청원 날짜 순으로 레코드 출력 (FragmentLike)
+    public String sort_Begin() {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        String result = "";
+
+        // 레코드 가져오기 (ID, BEGIN_DATE, END_DATE, CATEGORY, TITLE, KEYWORD, AGREE, LIKED)
+        Cursor cursor = db.rawQuery("SELECT * FROM PETITION WHERE LIKED LIKE 1 ORDER BY BEGIN_DATE", null);
+        while (cursor.moveToNext()) {
+            result += cursor.getString(0)   //ID
+                    + '\t'
+                    + cursor.getString(1)   //BEGIN_DATE
+                    + '\t'
+                    + cursor.getString(2)   //END_DATE
+                    + '\t'
+                    + cursor.getString(3)   //CATEGORY
+                    + '\t'
+                    + cursor.getString(4)   //TITLE
+                    + '\t'
+                    + cursor.getString(5)   //KEYWORD
+                    + '\t'
+                    + cursor.getInt(6)      //AGREE
+                    + '\t'
+                    + cursor.getInt(7)      //LIKED
+                    + '\n';
+        }
+        Log.i("[DBHelper: sort_Begin]", '\n' + result);
+        return result;
+    }
+
+    // 공감 인원 순으로 레코드 출력 (FragmentLike)
+    public String sort_Agree() {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        String result = "";
+
+        // 레코드 가져오기 (ID, BEGIN_DATE, END_DATE, CATEGORY, TITLE, KEYWORD, AGREE, LIKED)
+        Cursor cursor = db.rawQuery("SELECT * FROM PETITION WHERE LIKED LIKE 1 ORDER BY AGREE DESC", null);
+        while (cursor.moveToNext()) {
+            result += cursor.getString(0)   //ID
+                    + '\t'
+                    + cursor.getString(1)   //BEGIN_DATE
+                    + '\t'
+                    + cursor.getString(2)   //END_DATE
+                    + '\t'
+                    + cursor.getString(3)   //CATEGORY
+                    + '\t'
+                    + cursor.getString(4)   //TITLE
+                    + '\t'
+                    + cursor.getString(5)   //KEYWORD
+                    + '\t'
+                    + cursor.getInt(6)      //AGREE
+                    + '\t'
+                    + cursor.getInt(7)      //LIKED
+                    + '\n';
+        }
+        Log.i("[DBHelper: sort_Agree]", '\n' + result);
+        return result;
     }
 }

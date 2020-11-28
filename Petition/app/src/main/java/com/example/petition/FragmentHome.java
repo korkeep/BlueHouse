@@ -123,9 +123,7 @@ public class FragmentHome extends Fragment {
         }
     }
 
-    //현재 DB에 저장된 정보(썸네일, 날짜, 제목) 출력
-    //화면 클릭하면 영상 재생(비디오 ID를 Intent로, PlayActivity에서 재생)
-    //Check 클릭하면 GROUP_NAME 추가 or 삭제
+    //현재 DB에 저장된 정보 출력
     public class StoreListAdapter extends ArrayAdapter<HomeData> {
         private ArrayList<HomeData> items;
         HomeData fInfo;
