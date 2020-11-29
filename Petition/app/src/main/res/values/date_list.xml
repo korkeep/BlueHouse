@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="storeList">
+    <string-array name="dateList">
         <item>동의순</item>
-        <item>제목순</item>
-        <item>날짜순</item>
+        <item>청원순</item>
     </string-array>
 </resources>

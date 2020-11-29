@@ -42,9 +42,9 @@ public class FragmentLike extends Fragment {
         playlist = (ListView)v.findViewById(R.id.playlist);
 
         //Spinner 관련
-        final String[] data = getResources().getStringArray(R.array.storeList);
+        final String[] data = getResources().getStringArray(R.array.likeList);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, data);
-        Spinner spinner = (Spinner) v.findViewById(R.id.storeSpinner);
+        Spinner spinner = (Spinner) v.findViewById(R.id.likeSpinner);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("ResourceAsColor")
@@ -90,8 +90,8 @@ public class FragmentLike extends Fragment {
                 case "제목순":
                     getString = dbHelper.sort_Title();
                     break;
-                case "날짜순":
-                    getString = dbHelper.sort_Begin();
+                case "분야순":
+                    getString = dbHelper.sort_Category();
                     break;
                 default:
                     getString = dbHelper.sort_Agree();

@@ -155,13 +155,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // 청원 날짜 순으로 레코드 출력 (FragmentLike)
-    public String sort_Begin() {
+    public String sort_Category() {
         // 읽기가 가능하게 DB 열기
         SQLiteDatabase db = getReadableDatabase();
         String result = "";
 
         // 레코드 가져오기 (ID, BEGIN_DATE, END_DATE, CATEGORY, TITLE, KEYWORD, AGREE, LIKED)
-        Cursor cursor = db.rawQuery("SELECT * FROM PETITION WHERE LIKED LIKE 1 ORDER BY BEGIN_DATE", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM PETITION WHERE LIKED LIKE 1 ORDER BY CATEGORY", null);
         while (cursor.moveToNext()) {
             result += cursor.getString(0)   //ID
                     + '\t'
@@ -180,7 +180,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     + cursor.getInt(7)      //LIKED
                     + '\n';
         }
-        Log.i("[DBHelper: sort_Begin]", '\n' + result);
+        Log.i("[DBHelper: sort_Category]", '\n' + result);
         db.close();
         return result;
     }
@@ -233,8 +233,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    //동의수가 많은거 출력하는거 (FragmentDate)
-    public Iterator returnSortedKey(String a, String b) {
+    //청원수가 많은거 출력하는거 (FragmentDate)
+    public Iterator returnSortedKeyForAgree(String a, String b) {
         // 읽기가 가능하게 DB 열기
         SQLiteDatabase db = getReadableDatabase();
 
@@ -243,8 +243,6 @@ public class DBHelper extends SQLiteOpenHelper {
         int raw_agree;//동의수
         HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
         HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE BETWEEN '" + a + "' AND '" + b + "';", null);
 
@@ -270,14 +268,14 @@ public class DBHelper extends SQLiteOpenHelper {
             /*raw_keyword=cursor.getString(0);
             Log.i("로우키",raw_keyword);*/
         }
-        Log.i("Iter1[]","와일문 끝");
+        Log.i("[ReturnSortedKey]","While 끝");
 
         Iterator it = sortByValue(hsMap1).iterator();
         db.close();
         return it;
     }
 
-    // TO-DO (FragmentDate)
+    //동의수가 많은 것 출력하는 거 (FragmentDate)
     public Iterator returnSortedKeyForTotal(String a, String b) {
         // 읽기가 가능하게 DB 열기
         SQLiteDatabase db = getReadableDatabase();
@@ -309,7 +307,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 }
             }
         }
-        Log.i("Iter2[]","와일문 끝");
+        Log.i("[ReturnSortedKeyForTotal]","While 끝");
 
         Iterator it = sortByValue(hsMap2).iterator();
         db.close();
@@ -348,7 +346,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 }
             }
         }
-        Log.i("get_max3","와일문 끝");
+        Log.i("[ReturnHashMapForAgree]","While 끝");
         db.close();
         return hsMap1;
     }
@@ -385,7 +383,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 }
             }
         }
-        Log.i("get_max4","와일문 끝");
+        Log.i("[ReturnHashMapForTotal]","While 끝");
         db.close();
         return hsMap2;
     }

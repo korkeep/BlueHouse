@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="likeList">
+        <item>동의순</item>
+        <item>제목순</item>
+        <item>분야순</item>
+    </string-array>
+</resources>

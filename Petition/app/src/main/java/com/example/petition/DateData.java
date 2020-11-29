@@ -5,9 +5,9 @@ public class DateData {
     private Integer agree;
     private Integer total;
 
-    public DateData(String id, String keyword, Integer agree, Integer total) {
+    public DateData(String keyword, Integer agree, Integer total) {
         super();
-        this.keyword=keyword;
+        this.keyword = keyword;
         this.agree = agree;
         this.total = total;
     }

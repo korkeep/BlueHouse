@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <Spinner
-            android:id="@+id/storeSpinner"
+            android:id="@+id/likeSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
