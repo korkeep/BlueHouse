@@ -47,8 +47,6 @@ public class FragmentDate extends Fragment {
     HashMap<String,Integer> hsMap2 = new HashMap<>();   // 키워드 동의수
     String date1 = "2020-02-01";
     String date2 = "2020-10-29";
-    String c_date1 = "";
-    String c_date2 = "";
 
     AsyncTask<?, ?, ?> printTask;
 
@@ -142,46 +140,7 @@ public class FragmentDate extends Fragment {
                 tmp2 = Integer.toString(dayOfMonth);
             date1 = tmp0+"-"+tmp1+"-"+tmp2;
             textView_Date1.setText(date1);
-            switch (month){
-                case 0:
-                    tmp1="Jan";
-                    break;
-                case 1:
-                    tmp1="Feb";
-                    break;
-                case 2:
-                    tmp1="Mar";
-                    break;
-                case 3:
-                    tmp1="Apr";
-                    break;
-                case 4:
-                    tmp1="May";
-                    break;
-                case 5:
-                    tmp1="Jun";
-                    break;
-                case 6:
-                    tmp1="Jul";
-                    break;
-                case 7:
-                    tmp1="Aug";
-                    break;
-                case 8:
-                    tmp1="Sep";
-                    break;
-                case 9:
-                    tmp1="Oct";
-                    break;
-                case 10:
-                    tmp1="Nov";
-                    break;
-                case 11:
-                    tmp1="Dec";
-                    break;
-            }
-            c_date1 = tmp1+" "+tmp2+" "+tmp0;
-            Log.i("[FragmentDate]", c_date1);
+            Log.i("[FragmentDate]", date1);
         }
     };
 
@@ -204,46 +163,7 @@ public class FragmentDate extends Fragment {
                 tmp2 = Integer.toString(dayOfMonth);
             date2=tmp0+"-"+tmp1+"-"+tmp2;
             textView_Date2.setText(date2);
-            switch (month){
-                case 0:
-                    tmp1="Jan";
-                    break;
-                case 1:
-                    tmp1="Feb";
-                    break;
-                case 2:
-                    tmp1="Mar";
-                    break;
-                case 3:
-                    tmp1="Apr";
-                    break;
-                case 4:
-                    tmp1="May";
-                    break;
-                case 5:
-                    tmp1="Jun";
-                    break;
-                case 6:
-                    tmp1="Jul";
-                    break;
-                case 7:
-                    tmp1="Aug";
-                    break;
-                case 8:
-                    tmp1="Sep";
-                    break;
-                case 9:
-                    tmp1="Oct";
-                    break;
-                case 10:
-                    tmp1="Nov";
-                    break;
-                case 11:
-                    tmp1="Dec";
-                    break;
-            }
-            c_date2 = tmp1+" "+tmp2+" "+tmp0;
-            Log.i("[FragmentDate]", c_date2);
+            Log.i("[FragmentDate]", date2);
         }
     };
 
@@ -264,10 +184,10 @@ public class FragmentDate extends Fragment {
 
                 //DB 관련
                 final DBHelper dbHelper = new DBHelper(getActivity(), "PETITION.db", null, 1);
-                it1=dbHelper.returnSortedKeyForAgree(c_date1,c_date2);
-                it2=dbHelper.returnSortedKeyForTotal(c_date1,c_date2);
-                hsMap1=dbHelper.returnHashMapForAgree(c_date1,c_date2);
-                hsMap2=dbHelper.returnHashMapForTotal(c_date1,c_date2);
+                it1=dbHelper.returnSortedKeyForAgree(date1,date2);
+                it2=dbHelper.returnSortedKeyForTotal(date1,date2);
+                hsMap1=dbHelper.returnHashMapForAgree(date1,date2);
+                hsMap2=dbHelper.returnHashMapForTotal(date1,date2);
                 DateData tmp;
 
                 //동의 순, 청원 순 정렬

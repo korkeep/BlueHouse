@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Petition {
     private String id;
-    private Date begin;
-    private Date end;
+    private String begin;
+    private String end;
     private String category;
     private String title;
     private StringBuilder keyword;
@@ -15,10 +15,10 @@ public class Petition {
     public String getID() {
         return id;
     }
-    public Date getBegin() {
+    public String getBegin() {
         return begin;
     }
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
     public String getCategory() {
@@ -38,10 +38,10 @@ public class Petition {
     public void setID(String id) {
         this.id = id;
     }
-    public void setBegin(Date begin) {
+    public void setBegin(String begin) {
         this.begin = begin;
     }
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
     public void setCategory(String category) {

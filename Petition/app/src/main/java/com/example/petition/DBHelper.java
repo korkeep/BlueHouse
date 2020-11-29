@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //새로운 테이블 생성 (ID, BEGIN_DATE, END_DATE, CATEGORY, TITLE, KEYWORD, AGREE, LIKED)
-        sqLiteDatabase.execSQL("CREATE TABLE PETITION (ID TEXT PRIMARY KEY, BEGIN_DATE DATE, END_DATE DATE, CATEGORY TEXT, TITLE TEXT, KEYWORD TEXT, AGREE INTEGER, LIKED INTEGER);");
+        sqLiteDatabase.execSQL("CREATE TABLE PETITION (ID TEXT PRIMARY KEY, BEGIN_DATE TEXT, END_DATE TEXT, CATEGORY TEXT, TITLE TEXT, KEYWORD TEXT, AGREE INTEGER, LIKED INTEGER);");
         Log.i("[DBHelper: onCreate]", "테이블을 불러옵니다.");
     }
 
@@ -244,7 +244,8 @@ public class DBHelper extends SQLiteOpenHelper {
         HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
         HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
 
-        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE BETWEEN '" + a + "' AND '" + b + "';", null);
+        //Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE >= '" + a + "' AND <= '" + b + "';", null);
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE >=? AND END_DATE <= ?", new String[] {a, b});
 
         while (cursor.moveToNext()) {
             //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
@@ -286,7 +287,8 @@ public class DBHelper extends SQLiteOpenHelper {
         HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
         HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
 
-        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE BETWEEN '" + a + "' AND '" + b + "';", null);
+        //Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE >= '" + a + "' AND <= '" + b + "';", null);
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE >=? AND END_DATE <= ?", new String[] {a, b});
         while (cursor.moveToNext()) {
             //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
             raw_keyword = cursor.getString(0);
@@ -325,7 +327,8 @@ public class DBHelper extends SQLiteOpenHelper {
         HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
         HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
 
-        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE BETWEEN '" + a + "' AND '" + b + "';", null);
+        //Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE >= '" + a + "' AND <= '" + b + "';", null);
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE >=? AND END_DATE <= ?", new String[] {a, b});
         while (cursor.moveToNext()) {
             //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
             raw_keyword = cursor.getString(0);
@@ -362,7 +365,8 @@ public class DBHelper extends SQLiteOpenHelper {
         HashMap<String,Integer> hsMap1 = new HashMap<>();//키워드 반복 회수
         HashMap<String,Integer> hsMap2 = new HashMap<>();//키워드 동의수
 
-        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE BETWEEN '" + a + "' AND '" + b + "';", null);
+        //Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE >= '" + a + "' AND <= '" + b + "';", null);
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE END_DATE >=? AND END_DATE <= ?", new String[] {a, b});
         while (cursor.moveToNext()) {
             //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
             raw_keyword = cursor.getString(0);

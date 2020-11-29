@@ -80,9 +80,8 @@ public class FirstActivity extends Activity {
 
             //JSON 파싱
             data.setID(Integer.toString(name));
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            data.setBegin(dateFormat.parse(jsonObject.getString("begin")));
-            data.setEnd(dateFormat.parse(jsonObject.getString("end")));
+            data.setBegin(jsonObject.getString("begin"));
+            data.setEnd(jsonObject.getString("end"));
             data.setCategory(jsonObject.getString("category"));
             String split1 = jsonObject.getString("title").replace("'", "");
             String split2 = split1.replace("\"", "");
@@ -97,7 +96,7 @@ public class FirstActivity extends Activity {
 
             return true;
         }
-        catch (JSONException | ParseException e) {
+        catch (JSONException e) {
             e.printStackTrace();
             return false;
         }
