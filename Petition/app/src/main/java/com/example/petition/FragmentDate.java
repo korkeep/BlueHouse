@@ -40,13 +40,13 @@ public class FragmentDate extends Fragment {
     private ListView playlist;
     private String select = "";
     private Boolean flag = false;
+    private String date1 = "";
+    private String date2 = "";
 
     Iterator it1, it2;
     ArrayList<DateData> p_data = new ArrayList<DateData>();
     HashMap<String,Integer> hsMap1 = new HashMap<>();   // 키워드 반복 회수
     HashMap<String,Integer> hsMap2 = new HashMap<>();   // 키워드 동의수
-    String date1 = "2020-02-01";
-    String date2 = "2020-10-29";
 
     AsyncTask<?, ?, ?> printTask;
 
@@ -54,6 +54,9 @@ public class FragmentDate extends Fragment {
         View v = inflater.inflate(R.layout.fragment_date, container, false);
         textView_Date1 = (Button) v.findViewById(R.id.btnStart);
         textView_Date2 = (Button) v.findViewById(R.id.btnEnd);
+
+        date1 = textView_Date1.getText().toString();
+        date2 = textView_Date2.getText().toString();
 
         textView_Date1.setOnClickListener(this::mOnClick);
         textView_Date2.setOnClickListener(this::mOnClick);
@@ -73,7 +76,7 @@ public class FragmentDate extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 flag = true;
                 select = (String) adapterView.getItemAtPosition(i);
-                printTask = new FragmentDate.printTask().execute();
+                printTask = new printTask().execute();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -92,7 +95,6 @@ public class FragmentDate extends Fragment {
         flag = true;
         switch (v.getId()){
             case R.id.btnStart:
-                //DB 읽어오기
                 if(!date1.equals("")){
                     String[] subStr;
                     for (int i=0; i<date1.length(); i++) {
