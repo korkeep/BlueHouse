@@ -23,12 +23,12 @@ public class DualKey {
 
         DualKey other = (DualKey) o;
 
-        return other.key1 == this.key1 && other.key2 == this.key2;
+        return other.getKey1() == this.getKey1() && other.getKey2() == this.getKey2();
     }
 
     @Override
     public int hashCode() {
-        int h = (key1+key2).hashCode();
+        int h = (getKeys()).hashCode();
         return h; // import java.util.Objects; 가 필요함
     }
 }

@@ -43,22 +43,24 @@
                 android:id="@+id/total"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
-                android:ellipsize="end"
+                android:layout_marginEnd="24dp"
                 android:gravity="center"
-                android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/colorWhite" />
 
+<<<<<<< HEAD
            <TextView
                android:id="@+id/relateword"
                android:layout_width="wrap_content"
                android:layout_height="32dp"
-               android:ellipsize="end"
                android:gravity="center"
+               android:ellipsize="end"
                android:maxLines="1"
                android:singleLine="true"
                android:textColor="@color/colorWhite" />
 
+=======
+>>>>>>> parent of 3221265f... Sungsu: 화면2 연관 키워드 구성중
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

@@ -401,7 +401,7 @@ public class DBHelper extends SQLiteOpenHelper {
         int raw_agree;//동의수
         HashMap<DualKey,Integer> hsMap3 = new HashMap<>();
 
-        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE (AGREE>=10000) AND (END_DATE >=? AND END_DATE <= ?)", new String[] {a, b});
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE (AGREE>=50000) AND (END_DATE >=? AND END_DATE <= ?)", new String[] {a, b});
         while (cursor.moveToNext()) {
             //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
             raw_keyword = cursor.getString(0);

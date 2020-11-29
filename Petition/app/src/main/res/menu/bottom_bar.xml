@@ -3,11 +3,11 @@
     <item
         android:id="@+id/homeItem"
         android:icon="@drawable/home"
-        android:title="홈" />
+        android:title="검색" />
     <item
         android:id="@+id/dateItem"
         android:icon="@drawable/calendar"
-        android:title="검색" />
+        android:title="분석" />
     <item
         android:id="@+id/likeItem"
         android:icon="@drawable/folder"
