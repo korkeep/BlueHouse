@@ -391,4 +391,53 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return hsMap2;
     }
+
+    public HashMap<DualKey,Integer> returnHashMapForRelate(String a, String b) {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+
+        //변수들 선언
+        String raw_keyword; //키워드 쓸수 있을때까지 변경할때만 사용
+        int raw_agree;//동의수
+        HashMap<DualKey,Integer> hsMap3 = new HashMap<>();
+
+        Cursor cursor = db.rawQuery("SELECT KEYWORD, AGREE, END_DATE FROM PETITION WHERE (AGREE>=10000) AND (END_DATE >=? AND END_DATE <= ?)", new String[] {a, b});
+        while (cursor.moveToNext()) {
+            //keyword를 데이터베이스에서 읽어와 []를 없애고 , 기준으로 split한다.
+            raw_keyword = cursor.getString(0);
+            //Log.i("10000이상 받아온 놈들",raw_keyword);
+            String mid[]=raw_keyword.split(",");
+
+            //동의 수를 저장한다.
+            raw_agree=cursor.getInt(1);
+
+            int len=mid.length;
+            for(int i=0; i<len; i++)
+            {
+                for(int j=i+1; j<len; j++)
+                {
+                    String word = mid[i];
+                    String compareWord=mid[j];
+                    DualKey x1=new DualKey(word,compareWord);
+                    DualKey x2=new DualKey(compareWord,word);
+
+                    if(hsMap3.containsKey(x1)) {
+                        Log.i("집어넣기 ","시작");
+                        hsMap3.put(x1,hsMap3.get(x1)+raw_agree);
+                    }else{
+                        hsMap3.put(x1,raw_agree);
+                    }
+                    if(hsMap3.containsKey(x2)) {
+                        Log.i("집어넣기 ","시작");
+                        hsMap3.put(x2,hsMap3.get(x2)+raw_agree);
+                    }else{
+                        hsMap3.put(x2,raw_agree);
+                    }
+                }
+            }
+        }
+        Log.i("get_max3","와일문 끝");
+        db.close();
+        return hsMap3;
+    }
 }

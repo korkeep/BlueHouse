@@ -29,8 +29,11 @@ import android.widget.Toast;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class FragmentDate extends Fragment {
     // 변수 초기화
@@ -47,6 +50,7 @@ public class FragmentDate extends Fragment {
     ArrayList<DateData> p_data = new ArrayList<DateData>();
     HashMap<String,Integer> hsMap1 = new HashMap<>();   // 키워드 반복 회수
     HashMap<String,Integer> hsMap2 = new HashMap<>();   // 키워드 동의수
+    HashMap<DualKey, Integer> hsMap3 = new HashMap<>();   // 키워드 관련 청원 수
 
     AsyncTask<?, ?, ?> printTask;
 
@@ -190,6 +194,7 @@ public class FragmentDate extends Fragment {
                 it2=dbHelper.returnSortedKeyForTotal(date1,date2);
                 hsMap1=dbHelper.returnHashMapForAgree(date1,date2);
                 hsMap2=dbHelper.returnHashMapForTotal(date1,date2);
+                hsMap3=dbHelper.returnHashMapForRelate(date1,date2);
                 DateData tmp;
 
                 //동의 순, 청원 순 정렬
@@ -197,7 +202,8 @@ public class FragmentDate extends Fragment {
                     Log.i("[FragmentDate]", '\n' + "청원순 버튼 클릭");
                     while(it1.hasNext()) {
                         String tmp1 = (String)it1.next();
-                        tmp = new DateData(tmp1,(hsMap1.get(tmp1)),(hsMap2.get(tmp1)));
+                        String relateWord = returnRelateWord(tmp1,hsMap3);
+                        tmp = new DateData(tmp1,(hsMap1.get(tmp1)),(hsMap2.get(tmp1)), relateWord);
                         p_data.add(tmp);
                     }
                 }
@@ -205,7 +211,8 @@ public class FragmentDate extends Fragment {
                     Log.i("[FragmentDate]", '\n' + "동의순 버튼 클릭");
                     while(it2.hasNext()) {
                         String tmp2 = (String)it2.next();
-                        tmp = new DateData(tmp2,(hsMap1.get(tmp2)),(hsMap2.get(tmp2)));
+                        String relateWord = returnRelateWord(tmp2,hsMap3);
+                        tmp = new DateData(tmp2,(hsMap1.get(tmp2)),(hsMap2.get(tmp2)),relateWord);
                         p_data.add(tmp);
                     }
                 }
@@ -256,7 +263,63 @@ public class FragmentDate extends Fragment {
             final String Total = Integer.toString(fInfo.getTotal());
             ((TextView) v.findViewById(R.id.total)).setText(Total);
 
+            //연관 검색어
+            final String RelateWord = fInfo.getRelateWord();
+            ((TextView)v.findViewById(R.id.relateword)).setText(RelateWord);
+
             return v;
         }
+    }
+
+    //연관 검색어 위한 함수
+    public String returnRelateWord(String keyword, HashMap<DualKey,Integer> map){
+        HashMap<String,Integer> tmphs = straightList(keyword, map);
+        if(tmphs.containsKey("국민"))
+            Log.i("국민 키워드","존재");
+        Iterator it = sortByValue(tmphs).iterator();
+
+        String tmpstr="";
+        DualKey tmpdual;
+        int rep=0;
+        //if(it.hasNext())
+        //    Log.i("연관검색어: ","이거 실행은 되니?");
+        while(rep<3 && it.hasNext()){
+            Log.i("똑같은 단어가","과연 있을까");
+            tmpstr = tmpstr+" "+(String)it.next();
+            rep++;
+        }
+        Log.i("연관검색어: ",tmpstr);
+        return tmpstr;
+    }
+    //hsMap3를 위한 소트
+    public static List sortByValue(HashMap<String,Integer> map) {
+        List<String> list = new ArrayList();
+        list.addAll(map.keySet());
+
+        Collections.sort(list,new Comparator() {
+
+            public int compare(Object o1,Object o2) {
+                Object v1 = map.get(o1);
+                Object v2 = map.get(o2);
+                return ((Comparable) v2).compareTo(v1);
+            }
+        });
+        //Collections.reverse(list); // 주석시 오름차순
+        return list;
+    }
+    public static HashMap<String,Integer> straightList(String keyword, HashMap<DualKey,Integer> map){
+        HashMap<String,Integer> retu = new HashMap<>();
+        List<DualKey> list = new ArrayList<>();
+        list.addAll((map.keySet()));
+
+        Iterator it = list.iterator();
+        DualKey tmpdual;
+        while(it.hasNext()){
+            tmpdual=((DualKey)it.next());
+            if(tmpdual.getKey1()==keyword){
+                retu.put(tmpdual.getKey2(),map.get(tmpdual));
+            }
+        }
+        return retu;
     }
 }

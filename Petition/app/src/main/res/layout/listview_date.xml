@@ -49,6 +49,16 @@
                 android:singleLine="true"
                 android:textColor="@color/colorWhite" />
 
+           <TextView
+               android:id="@+id/relateword"
+               android:layout_width="wrap_content"
+               android:layout_height="32dp"
+               android:ellipsize="end"
+               android:gravity="center"
+               android:maxLines="1"
+               android:singleLine="true"
+               android:textColor="@color/colorWhite" />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
