@@ -18,7 +18,7 @@ Keyword Analysis & Visualization of the Blue-House National Petition Data
 - **Analysis**: Process Data in API Format (Python → Spark SQL, NLP)
 - **Visualization**: Android APP Development (Java → Android Studio)
 
-## API Foramt
+## API Format
 | Content | Description |
 | --- | --- |
 | time | 수집시각 |
