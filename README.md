@@ -51,5 +51,5 @@ parse_page(url)
  ```
 
 ## Application Design
-- [YouTube Link](https://www.youtube.com/watch?v=lhAaXeZExQY)
+- [YouTube Link](https://www.youtube.com/watch?v=lhAaXeZExQY)  
 ![UI](https://user-images.githubusercontent.com/20378368/105572004-c74ba380-5d97-11eb-8127-af692fff02ac.PNG)
