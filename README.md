@@ -49,3 +49,7 @@ parse_page(url)
  'agree': 593596,
  'status': '청원진행중'}
  ```
+
+## Application Design
+![UI](https://user-images.githubusercontent.com/20378368/105572004-c74ba380-5d97-11eb-8127-af692fff02ac.PNG)
+- [YouTube Link](https://www.youtube.com/watch?v=lhAaXeZExQY)
