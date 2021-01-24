@@ -3,7 +3,7 @@
 Keyword Analysis & Visualization of the Blue-House National Petition Data
 
 ## Development Process
-- **Acquisition**: Data Crawling & Pre-Processing (Python → Beautifulsoup)
+- **Acquisition**: Data Crawling (Python → Beautifulsoup)
 - **Pre-Processing**: Data Tokenizing (Python → TF-IDF)
 - **Analysis**: Process Data in API Format (Python → KoNLP)
 - **Visualization**: Android APP Development (Java → Android)
