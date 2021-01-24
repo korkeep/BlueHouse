@@ -2,21 +2,11 @@
 ## Project Goal
 Keyword Analysis & Visualization of the Blue-House National Petition Data
 
-## Expected Result
-### 1. Analysis of public opinion
-- TF-IDF keyword analysis → elicit public opinion
-- Classification → number of participants, category, month
-### 2. How they changed our lives
-- How public opinion has affected the trial → Me-Too, 'N'th room, Appointing Cho-Kuk as minister of justice ···
-- Whether the legislation's imprisonment weight was set correctly or not → Minsik law, Yoon-Changho law ···
-- Difference between government's stance and public opinion → DPRK, Real estate, Prosecution, COVID-19 ···
-### 3. Good/Poor part classification
-- Suggestions for improvement → Target: Government, Congress, Court, Media
-
-## To-Do List
-- **Acquisition**: Data Crawling & Pre-Processing (Python → Selenium, TF-IDF)
-- **Analysis**: Process Data in API Format (Python → Spark SQL, NLP)
-- **Visualization**: Android APP Development (Java → Android Studio)
+## Development Process
+- **Acquisition**: Data Crawling & Pre-Processing (Python → Beautifulsoup)
+- **Pre-Processing**: Data Tokenizing (Python → TF-IDF)
+- **Analysis**: Process Data in API Format (Python → KoNLP)
+- **Visualization**: Android APP Development (Java → Android)
 
 ## API Format
 | Content | Description |
@@ -51,5 +41,32 @@ parse_page(url)
  ```
 
 ## Application Design
-- [YouTube Link](https://www.youtube.com/watch?v=lhAaXeZExQY)  
-![UI](https://user-images.githubusercontent.com/20378368/105572004-c74ba380-5d97-11eb-8127-af692fff02ac.PNG)
+**Acquisition**  
+![acq](https://user-images.githubusercontent.com/20378368/105618538-c401f780-5e2b-11eb-9483-fa3e5f7f3a7e.PNG)
+- 데이터 수집(Crawling) 단계
+- BeautifulSoup: HTML 데이터 크롤링 라이브러리  
+**Pre-Processing**  
+![pre](https://user-images.githubusercontent.com/20378368/105618539-c5332480-5e2b-11eb-908c-4cf38ebebdc2.PNG)
+- 자연어 처리(NLP; Natural Language Processing) 단계
+- KoNLPy: 한글 형태소 분석 라이브러리  
+**Analysis**  
+![ana](https://user-images.githubusercontent.com/20378368/105618540-c5cbbb00-5e2b-11eb-9166-74d0271164be.PNG)
+- 키워드 분석 단계
+- TF-IDF: 키워드 추출 알고리즘  
+**Visualization**  
+![vis](https://user-images.githubusercontent.com/20378368/105618541-c5cbbb00-5e2b-11eb-920f-ddb15e5f21bb.PNG)
+- 분석 결과 → 시각화 단계
+- Android Application 개발  
+
+## Result
+### 1. Analysis of public opinion
+- TF-IDF keyword analysis → elicit public opinion
+- Classification → number of participants, category, month
+### 2. How they changed our lives
+- How public opinion has affected the trial → Me-Too, 'N'th room, Appointing Cho-Kuk as minister of justice ···
+- Whether the legislation's imprisonment weight was set correctly or not → Minsik law, Yoon-Changho law ···
+- Difference between government's stance and public opinion → DPRK, Real estate, Prosecution, COVID-19 ···
+### 3. Good/Poor part classification
+- Suggestions for improvement → Target: Government, Congress, Court, Media
+### Demo
+**[YouTube Link](https://www.youtube.com/watch?v=lhAaXeZExQY)**
