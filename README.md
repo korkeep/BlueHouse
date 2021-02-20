@@ -70,4 +70,5 @@ parse_page(url)
 - Suggestions for improvement → Target: Government, Congress, Court, Media
 
 ## Demo Video
-**[YouTube Link](https://www.youtube.com/watch?v=lhAaXeZExQY)**
+**[YouTube Link](https://www.youtube.com/watch?v=lhAaXeZExQY)**  
+![image](https://user-images.githubusercontent.com/20378368/108582100-643c3500-7374-11eb-8ee0-80f659644c8d.png)
