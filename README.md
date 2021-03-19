@@ -1,6 +1,6 @@
 # BlueHouse
 ## Project Goal
-Keyword Analysis & Visualization of the Blue-House National Petition Data
+Keyword Analysis & Visualization of the Blue-House National Petition Data <img title="South Korea" alt="South Korea" src="https://image.flaticon.com/icons/svg/197/197582.svg" width="15"/>
 
 ## Development Process
 - **Acquisition**: Data Crawling (Python → Beautifulsoup)
