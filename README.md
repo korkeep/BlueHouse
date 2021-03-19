@@ -58,6 +58,7 @@ parse_page(url)
 - 분석 결과 → 시각화 단계
 - Android Application 개발  
 
+<!--
 ## Result
 ### Analysis of public opinion
 - TF-IDF keyword analysis → elicit public opinion
@@ -68,6 +69,7 @@ parse_page(url)
 - Difference between government's stance and public opinion → DPRK, Real estate, Prosecution, COVID-19 ···
 ### Good/Poor part classification
 - Suggestions for improvement → Target: Government, Congress, Court, Media
+-->
 
 ## Demo Video
 **[YouTube Link](https://www.youtube.com/watch?v=lhAaXeZExQY)**  
